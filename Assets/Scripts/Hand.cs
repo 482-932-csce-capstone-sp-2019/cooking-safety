@@ -29,13 +29,11 @@ public class Hand : MonoBehaviour
         // Down
         if (m_GrabAcion.GetStateDown(m_Pose.inputSource))
         {
-            print(m_Pose.inputSource + " Trigger Down");
             Pickup();
         }
         // Up
         if (m_GrabAcion.GetStateUp(m_Pose.inputSource))
         {
-            print(m_Pose.inputSource + " Trigger Up");
             Drop();
         }
     }
@@ -44,7 +42,6 @@ public class Hand : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Interactable"))
         {
-            //print("Wrong tag");
             return;
         }
         m_ContactInteractables.Add(other.gameObject.GetComponent<Interactable>());
@@ -54,7 +51,6 @@ public class Hand : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Interactable"))
         {
-            //print("Wrong tag");
             return;
         }
         m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());
