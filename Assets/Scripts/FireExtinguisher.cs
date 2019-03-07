@@ -28,6 +28,7 @@ public class FireExtinguisher : MonoBehaviour {
             if (m_ActivateAction.GetStateDown(m_Pose.inputSource))
             {
                 // If down, emit particles
+                print("Button down");
             }
 
             // Button not pressed
