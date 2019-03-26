@@ -34,8 +34,8 @@ public class Hand : MonoBehaviour
         // Up
         if (m_GrabAcion.GetStateUp(m_Pose.inputSource))
         {
-            Untouch();
             Poke();
+            Untouch();
         }
     }
 
