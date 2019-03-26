@@ -29,12 +29,13 @@ public class Hand : MonoBehaviour
         // Down
         if (m_GrabAcion.GetStateDown(m_Pose.inputSource))
         {
-            Pickup();
+            Touch();
         }
         // Up
         if (m_GrabAcion.GetStateUp(m_Pose.inputSource))
         {
-            Drop();
+            Untouch();
+            Poke();
         }
     }
 
@@ -56,7 +57,19 @@ public class Hand : MonoBehaviour
         m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());
     }
 
-    public void Pickup()
+    public void Attach(Interactable interactable)
+    {
+        // Attach
+        Rigidbody targetBody = interactable.GetComponent<Rigidbody>();
+        m_Joint.connectedBody = targetBody;
+    }
+
+    public void Detach()
+    {
+        m_Joint.connectedBody = null;
+    }
+
+    public void Touch()
     {
         // Get nearest inteactable
         m_CurrentInteractable = GetNearestInteractable();
@@ -67,24 +80,10 @@ public class Hand : MonoBehaviour
             return;
         }
 
-        // If already held
-        if (m_CurrentInteractable.m_ActiveHand)
-        {
-            m_CurrentInteractable.m_ActiveHand.Drop();
-        }
-
-        // Position
-        m_CurrentInteractable.transform.position = transform.position;
-
-        // Attach
-        Rigidbody targetBody = m_CurrentInteractable.GetComponent<Rigidbody>();
-        m_Joint.connectedBody = targetBody;
-
-        // Set active hand
-        m_CurrentInteractable.m_ActiveHand = this;
+        m_CurrentInteractable.Touched(this);
     }
 
-    public void Drop()
+    public void Untouch()
     {
         // Check if null
         if (!m_CurrentInteractable)
@@ -92,18 +91,25 @@ public class Hand : MonoBehaviour
             return;
         }
 
+        m_CurrentInteractable.Untouched(this);
+        m_CurrentInteractable = null;
+    }
+
+    public void Poke()
+    {
+        if(!m_CurrentInteractable){
+            return;
+        }
+        if(m_CurrentInteractable == GetNearestInteractable()){
+            m_CurrentInteractable.Poked(this);
+        }
+    }
+
+    public void copyVelocity(Interactable interactable){
         // Apply velocity
-        Rigidbody targetBody = m_CurrentInteractable.GetComponent<Rigidbody>();
+        Rigidbody targetBody = interactable.GetComponent<Rigidbody>();
         targetBody.velocity = m_Pose.GetVelocity();
         targetBody.angularVelocity = m_Pose.GetAngularVelocity();
-
-        // Detach
-        m_Joint.connectedBody = null;
-
-        // Clear
-        m_CurrentInteractable.m_ActiveHand = null;
-        m_CurrentInteractable = null;
-
     }
 
     private Interactable GetNearestInteractable()
