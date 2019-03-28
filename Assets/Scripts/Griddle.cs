@@ -16,6 +16,21 @@ public class Griddle : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        print("Collider entered");
+        print("Collider entered: " + other.gameObject.name);
+        Cookable obj = other.gameObject.GetComponent<Cookable>();
+        if(obj != null)
+        {
+            obj.on_griddle = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        print("Collider exited: " + other.gameObject.name);
+        Cookable obj = other.gameObject.GetComponent<Cookable>();
+        if (obj != null)
+        {
+            obj.on_griddle = false;
+        }
     }
 }
