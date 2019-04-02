@@ -30,6 +30,7 @@ public class HandState {
         if (_state == State.gloved) return;
         _state = State.clean;
         Hands.color = glove_color;
+        MonoBehaviour.print("gloved hand");
     }
 
     public void unglove()
