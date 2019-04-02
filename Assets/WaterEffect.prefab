@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198564939592158130}
   - component: {fileID: 199821292805776068}
   m_Layer: 0
-  m_Name: Water Effect
+  m_Name: WaterEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
