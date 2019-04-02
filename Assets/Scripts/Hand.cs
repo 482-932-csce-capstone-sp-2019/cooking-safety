@@ -5,8 +5,7 @@ using Valve.VR;
 
 public class Hand : MonoBehaviour
 {
-
-
+    public HandState handState = new HandState();
     // For picking up and releasing objects
     public SteamVR_Action_Boolean m_GrabAcion = null;
 
