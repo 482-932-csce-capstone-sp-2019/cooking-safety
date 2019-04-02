@@ -35,6 +35,11 @@ public class FireExtinguisher : MonoBehaviour {
                 if (m_ParticleSystem.isStopped)
                 {
                     m_ParticleSystem.Play(true);
+                    RaycastHit extinguisherRay;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out extinguisherRay, 1))
+                    {
+                        // Turn off fire effect.
+                    }
                 }
             }
 
