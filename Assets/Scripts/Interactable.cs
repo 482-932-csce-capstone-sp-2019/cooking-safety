@@ -8,22 +8,22 @@ public class Interactable : MonoBehaviour {
     [HideInInspector]
     public Hand m_ActiveHand = null;
 
-    public void Touched(Hand hand)
+    public virtual void Touched(Hand hand)
     {
         Pickup(hand);
     }
 
-    public void Untouched(Hand hand)
+    public virtual void Untouched(Hand hand)
     {
         Drop(hand);
     }
 
-    public void Poked(Hand hand)
+    public virtual void Poked(Hand hand)
     {
         //Do nothing normally
     }
 
-    public void Pickup(Hand hand)
+    public virtual void Pickup(Hand hand)
     {
         // If already held
         if (m_ActiveHand)
@@ -40,7 +40,7 @@ public class Interactable : MonoBehaviour {
         m_ActiveHand = hand;
     }
 
-    public void Drop(Hand hand)
+    public virtual void Drop(Hand hand)
     {
         hand.copyVelocity(this);
 
