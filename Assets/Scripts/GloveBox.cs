@@ -5,18 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class GloveBox : Interactable {
 
-    public void Touched(Hand hand)
+    public override void Touched(Hand hand)
     {
         //Do Nothing
     }
 
-    public void Untouched(Hand hand)
+    public override void Untouched(Hand hand)
     {
         //Do Nothing
     }
 
-    public void Poked(Hand hand)
+    public override void Poked(Hand hand)
     {
+        print("glovebox poked");
         hand.handState.glove();
     }
 }
