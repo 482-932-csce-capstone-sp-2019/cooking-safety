@@ -13,7 +13,7 @@ public class Sink : Interactable
 
     public void Awake()
     {
-        water = this.GetComponent<ParticleSystem>();
+        water = GetComponentInChildren<ParticleSystem>();
     }
 
     public void OnCollisionEnter(Collision collision)
