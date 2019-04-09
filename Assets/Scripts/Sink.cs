@@ -13,12 +13,22 @@ public class Sink : Interactable
 
     public void Awake()
     {
-        water = this.GetComponent<ParticleSystem>();
+        water = GetComponentInChildren<ParticleSystem>();
     }
 
     public void OnCollisionEnter(Collision collision)
     {
         collision.gameObject.GetComponent<Hand>().handState.clean();
+    }
+
+    public override void Touched(Hand hand)
+    {
+        //Do Nothing
+    }
+
+    public override void Untouched(Hand hand)
+    {
+        //Do Nothing
     }
 
     public void Poke(Hand activating_hand)
