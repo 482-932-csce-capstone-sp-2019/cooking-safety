@@ -5,38 +5,30 @@ using System.Text;
 using Valve.VR;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Sink : Interactable
+namespace Assets.Scripts
 {
-    ParticleSystem water;
-    private bool isRunning = false;
-
-    public void Awake()
+    public class Sink : Interactable
     {
-        water = this.GetComponent<ParticleSystem>();
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        collision.gameObject.GetComponent<Hand>().handState.clean();
-    }
-
-    public void Poke(Hand activating_hand)
-    {
-        ToggleFaucet();
-    }
-
-    private void ToggleFaucet()
-    {
-        if (isRunning)
+        private bool isRunning = false;
+        public void Poke(Hand activating_hand)
         {
-            isRunning = false;
-            water.Stop();
+            ParticleSystem water = this.GetComponent<ParticleSystem>();
+                // Turn on/off the sink
+                if (isRunning)
+                {
+                    isRunning = false;
+                /* Turn off sink
+                 * 1. Turn off water effect. */
+                water.Stop();
+                }
+                else
+                {
+                    isRunning = true;
+                /* Turn on sink 
+                 * 1. Turn on water effect. */
+                water.Play();
+                }
         }
-        else
-        {
-            isRunning = true;
-            water.Play();
-        }
+     
     }
 }

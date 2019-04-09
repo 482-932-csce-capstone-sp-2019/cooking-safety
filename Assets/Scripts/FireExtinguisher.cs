@@ -4,13 +4,28 @@ using UnityEngine;
 using Valve.VR;
 
 public class FireExtinguisher : MonoBehaviour {
-
+    ParticleSystem part;
     public SteamVR_Action_Boolean m_ActivateAction = null;
     private bool lastFrameOn = false;
-
+    public List<ParticleCollisionEvent> collisionEvents;
     // Use this for initialization
     void Awake ()
     {
+        part = GetComponent<ParticleSystem>();
+        collisionEvents = new List<ParticleCollisionEvent>();
+    }
+
+    void OnParticleCollision(GameObject other) {
+        int numCollisionEvents = part.GetCollisionEvents(other, collisionEvents);
+        int i = 0;
+        while (i < numCollisionEvents)
+        {
+            if (other.tag == "Fire")
+            {
+                other.SetActive(false);
+            }
+            i++;
+        }
     }
 
     // Update is called once per frame
@@ -38,8 +53,9 @@ public class FireExtinguisher : MonoBehaviour {
                     RaycastHit extinguisherRay;
                     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out extinguisherRay, 1, 9))
                     {
-                        Fire fire = extinguisherRay.collider.GetComponentInParent<Fire>();
-                        fire.Extinguish();
+                        /*Fire fire = extinguisherRay.collider.GetComponentInParent<Fire>();
+                        fire.Extinguish();*/
+
                     }
                 }
             }
