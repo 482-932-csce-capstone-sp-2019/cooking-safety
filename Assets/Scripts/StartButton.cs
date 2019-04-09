@@ -7,7 +7,7 @@ public class StartButton : Button {
 	protected override void Activate()
     {
         // Load new scene asynchronously
-
+        
         // When finished, migrate to new scene
     }
 }
