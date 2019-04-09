@@ -5,6 +5,7 @@ using UnityEngine;
 public class Thermometer : MonoBehaviour {
 
 	public float temperature = 72;
+    Cookable cook;
 	Renderer rend;
 	
 	void Start () {
@@ -12,14 +13,14 @@ public class Thermometer : MonoBehaviour {
 		rend = GetComponent<Renderer>();
 		rend.enabled = true;
 		
-		StartCoroutine(Cool());
+		//StartCoroutine(Cool());
 	}
 	
 	void OnTriggerEnter(Collider col)
 	{
 		if(col.gameObject.tag == "Meat")
 		{
-			Cookable cook = col.gameObject.GetComponent<Cookable>();
+			cook = col.gameObject.GetComponent<Cookable>();
 			
 			float otherTemp = cook.core_temp;
 			
@@ -39,16 +40,21 @@ public class Thermometer : MonoBehaviour {
 	{
 		while(true)
 		{
-			yield return new WaitForSeconds(5);
-			temperature += 1;
-		}
+            //yield return new WaitForSeconds(5);
+            //temperature += 1;
+
+            float otherTemp = cook.core_temp;
+            temperature = otherTemp;
+        }
 	}
 	IEnumerator Cool()
 	{
 		while(true)
 		{
-			yield return new WaitForSeconds(5);
-			temperature -= 1;
-		}
+            //yield return new WaitForSeconds(5);
+            //temperature -= 1;
+            float otherTemp = cook.core_temp;
+            temperature = otherTemp;
+        }
 	}
 }
