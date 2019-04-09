@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour {
     [HideInInspector]
     public Hand m_ActiveHand = null;
 
-    public virtual void Touched(Hand hand)
+    public virtual void Touched(Hand hand)  
     {
         Pickup(hand);
     }

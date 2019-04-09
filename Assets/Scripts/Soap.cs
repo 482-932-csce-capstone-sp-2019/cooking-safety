@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class GloveBox : Interactable {
+public class Soap : Interactable {
 
     public override void Touched(Hand hand)
     {
@@ -17,6 +17,6 @@ public class GloveBox : Interactable {
 
     public override void Poked(Hand hand)
     {
-        hand.handState.glove();
+        hand.handState.soap();
     }
 }
