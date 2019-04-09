@@ -14,11 +14,14 @@ public class Sink : Interactable
     public void Awake()
     {
         water = GetComponentInChildren<ParticleSystem>();
+        water.Stop();
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.GetComponent<Hand>().handState.clean();
+        var temp = collision.gameObject.GetComponent<Hand>();
+        if (temp)
+            temp.handState.clean();
     }
 
     public override void Touched(Hand hand)
@@ -31,8 +34,9 @@ public class Sink : Interactable
         //Do Nothing
     }
 
-    public void Poke(Hand activating_hand)
+    public override void Poked(Hand activating_hand)
     {
+        print("sink poked");
         ToggleFaucet();
     }
 
