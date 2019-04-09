@@ -16,7 +16,6 @@ public class Griddle : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        print("Collider entered: " + other.gameObject.name);
         Cookable obj = other.gameObject.GetComponent<Cookable>();
         if(obj != null)
         {
@@ -26,7 +25,6 @@ public class Griddle : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        print("Collider exited: " + other.gameObject.name);
         Cookable obj = other.gameObject.GetComponent<Cookable>();
         if (obj != null)
         {

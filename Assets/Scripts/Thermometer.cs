@@ -10,30 +10,38 @@ public class Thermometer : MonoBehaviour {
 	
 	void Start () {
 		
-		rend = GetComponent<Renderer>();
-		rend.enabled = true;
-		
 		//StartCoroutine(Cool());
 	}
 	
 	void OnTriggerEnter(Collider col)
 	{
-		if(col.gameObject.tag == "Meat")
+        print("Thermometer");
+        cook = col.gameObject.GetComponent<Cookable>();
+
+        if (cook)
 		{
-			cook = col.gameObject.GetComponent<Cookable>();
+            print("Meat found");
 			
+			/*
+
 			float otherTemp = cook.core_temp;
-			
 			for(int i=0;i<otherTemp;i+=5)
 			{
 				temperature += i;
 			}
-		}
-		StartCoroutine("Heat");
+            */
+            //StartCoroutine("Heat");
+            print(cook.core_temp);
+            temperature = cook.core_temp;
+        }
 	}
 	void OnTriggerExit(Collider col)
 	{
-		StopCoroutine("Heat");
+        if (col.gameObject.GetComponent<Cookable>())
+        {
+            //StopCoroutine("Heat");
+            cook = null;
+        }
 	}
 	
 	IEnumerator Heat()
