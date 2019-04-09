@@ -21,6 +21,16 @@ public class Sink : Interactable
         collision.gameObject.GetComponent<Hand>().handState.clean();
     }
 
+    public override void Touched(Hand hand)
+    {
+        //Do Nothing
+    }
+
+    public override void Untouched(Hand hand)
+    {
+        //Do Nothing
+    }
+
     public void Poke(Hand activating_hand)
     {
         ToggleFaucet();
