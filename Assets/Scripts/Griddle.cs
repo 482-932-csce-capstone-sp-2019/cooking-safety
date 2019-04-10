@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Griddle : MonoBehaviour {
 
+    public bool griddle_on = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -17,7 +19,7 @@ public class Griddle : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Cookable obj = other.gameObject.GetComponent<Cookable>();
-        if(obj != null)
+        if(obj != null && griddle_on)
         {
             obj.on_griddle = true;
         }
@@ -26,7 +28,7 @@ public class Griddle : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         Cookable obj = other.gameObject.GetComponent<Cookable>();
-        if (obj != null)
+        if (obj != null && griddle_on)
         {
             obj.on_griddle = false;
         }
