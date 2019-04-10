@@ -1,26 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Thermometer : MonoBehaviour {
 
-	public float temperature = 72;
+	public float temperature = 0;
     Cookable cook;
 	Renderer rend;
+    TextMeshPro display;
 	
-	void Start () {
-		
-		//StartCoroutine(Cool());
-	}
+    void Start()
+    {
+        display = transform.parent.gameObject.GetComponentInChildren<TextMeshPro>();
+    }
+
+	void Update()
+    {
+        display.text = System.Convert.ToString(temperature);
+    }
 	
 	void OnTriggerEnter(Collider col)
 	{
-        print("Thermometer");
         cook = col.gameObject.GetComponent<Cookable>();
 
         if (cook)
 		{
-            print("Meat found");
 			
 			/*
 
@@ -31,7 +36,6 @@ public class Thermometer : MonoBehaviour {
 			}
             */
             //StartCoroutine("Heat");
-            print(cook.core_temp);
             temperature = cook.core_temp;
         }
 	}
