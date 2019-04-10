@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Button : MonoBehaviour {
+
+    private Material inverse_mat;
+
+    private void Start()
+    {
+        inverse_mat = Resources.Load("ButtonPressed", typeof(Material)) as Material;
+    }
+
+    private void SwitchMaterial()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        Material temp_mat = inverse_mat;
+        inverse_mat = renderer.material;
+        GetComponent<Renderer>().material = temp_mat;
+    }
 	
     private void OnTriggerEnter(Collider other)
     {
@@ -11,13 +26,20 @@ public class Button : MonoBehaviour {
         if (hand)
         {
             // Change color of button for visual feedback
-            Renderer renderer = GetComponent<Renderer>();
-            Material old_mat = renderer.material;
-            GetComponent<Renderer>().material = Resources.Load("ButtonPressed", typeof(Material)) as Material;
+            SwitchMaterial();
             Activate();
-            renderer.material = old_mat;
         }
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // If Hand exits collider, change button color back
+        var hand = other.gameObject.GetComponent<Hand>();
+        if (hand)
+        {
+            SwitchMaterial();
+        }
     }
 
     protected virtual void Activate()
