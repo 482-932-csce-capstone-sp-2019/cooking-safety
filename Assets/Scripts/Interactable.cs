@@ -23,7 +23,7 @@ public class Interactable : MonoBehaviour {
         //Do nothing normally
     }
 
-    public virtual void Pickup(Hand hand)
+    public void Pickup(Hand hand)
     {
         // If already held
         if (m_ActiveHand)
@@ -40,7 +40,7 @@ public class Interactable : MonoBehaviour {
         m_ActiveHand = hand;
     }
 
-    public virtual void Drop(Hand hand)
+    public void Drop(Hand hand)
     {
         hand.copyVelocity(this);
 

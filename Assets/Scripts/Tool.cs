@@ -6,7 +6,7 @@ public class Tool : Interactable {
 
 
 
-    public override void Pickup(Hand hand)
+    public override void Touched(Hand hand)
     {
         // If already held
         if (m_ActiveHand)
@@ -16,8 +16,8 @@ public class Tool : Interactable {
 
         // Position
 
-        transform.localPosition = hand.transform.position - transform.Find("InteractionPoint").localPosition;
-        transform.localRotation = Quaternion.Inverse(transform.Find("InteractionPoint").localRotation);
+        transform.position = hand.transform.position - transform.Find("InteractionPoint").localPosition;
+        transform.rotation = hand.transform.rotation * transform.Find("InteractionPoint").localRotation;
 
         var renderer = hand.GetComponentInChildren<SkinnedMeshRenderer>();
         renderer.enabled = false;
@@ -27,7 +27,7 @@ public class Tool : Interactable {
         m_ActiveHand = hand;
     }
 
-    public override void Drop(Hand hand)
+    public override void Untouched(Hand hand)
     {
         hand.copyVelocity(this);
 
