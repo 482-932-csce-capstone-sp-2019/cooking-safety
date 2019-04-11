@@ -24,22 +24,22 @@ public class GriddleControls : Interactable {
     public override void Poked(Hand hand)
     {
         // Turn the control's rotation when poked
-        float tilt_x = transform.rotation.x * -1;
+        float tilt_x;
         float tilt_y;
         if (griddle_on)
         {
+            tilt_x = 62f;
             tilt_y = 0f;
             griddle_on = false;
         }
         else
         {
+            tilt_x = -62f;
             tilt_y = 180f;
             griddle_on = true;
         }
-        Quaternion target = Quaternion.Euler(tilt_x, tilt_y, 0);
 
-        // Dampen towards the target rotation
-        transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * 5.0f);
+        transform.localRotation = Quaternion.Euler(tilt_x, tilt_y, 0);
 
         // Tell Griddle.cs to reflect the changes
         GameObject.Find("GriddleLogic").GetComponent<Griddle>().griddle_on = griddle_on;
