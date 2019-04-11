@@ -17,11 +17,13 @@ public class Sink : Interactable
         water.Stop();
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collider)
     {
-        var temp = collision.gameObject.GetComponent<Hand>();
-        if (temp)
-            temp.handState.clean();
+        var hand = collider.gameObject.GetComponent<Hand>();
+        if (hand && isRunning)
+        {
+            hand.handState.clean();
+        }
     }
 
     public override void Touched(Hand hand)
@@ -36,7 +38,6 @@ public class Sink : Interactable
 
     public override void Poked(Hand activating_hand)
     {
-        print("sink poked");
         ToggleFaucet();
     }
 

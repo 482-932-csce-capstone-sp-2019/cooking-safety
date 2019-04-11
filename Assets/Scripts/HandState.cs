@@ -41,7 +41,7 @@ public class HandState {
     public void glove()
     {
         if (_state == State.gloved) return;
-        _state = State.clean;
+        _state = State.gloved;
         Hands.color = glove_color;
     }
 
