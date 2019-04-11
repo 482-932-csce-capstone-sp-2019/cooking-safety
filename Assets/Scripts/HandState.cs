@@ -6,12 +6,17 @@ public class HandState {
 
     Material Hands = (Material)Resources.Load("Hands", typeof(Material));
     enum State { dirty, soaped, clean, gloved }
-    State _state = State.dirty;
+    State _state;
 
     Color glove_color = Color.yellow;
     Color clean_color = Color.white;
     Color dirty_color = Color.grey;
     Color soapy_color = Color.red;
+
+    public HandState(){
+        Hands.color = dirty_color;
+        _state = State.dirty;
+    }
 
     public void soap()
     {
@@ -36,9 +41,8 @@ public class HandState {
     public void glove()
     {
         if (_state == State.gloved) return;
-        _state = State.clean;
+        _state = State.gloved;
         Hands.color = glove_color;
-        MonoBehaviour.print("gloved hand");
     }
 
     public void unglove()
