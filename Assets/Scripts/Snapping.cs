@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(FixedJoint))]
 public class Snapping : Interactable {
 
     private SnapPoint snapPoint = null; 
@@ -9,14 +11,14 @@ public class Snapping : Interactable {
 
     public override void Touched(Hand hand)
     {
-        Unsnap();
+        //Unsnap();
         base.Touched(hand);
     }
 
     public override void Untouched(Hand hand)
     {
         base.Untouched(hand);
-        Snap();
+       // Snap();
     }
 
     public override void Poked(Hand hand)
@@ -42,14 +44,15 @@ public class Snapping : Interactable {
 
     void Unsnap()
     {
-        if(!CurrentSnapping){
-            CurrentSnapping.GetSnapPoint().Detach();
+        if(CurrentSnapping){
+            CurrentSnapping.Detach();
         }
     }
 
     // Use this for initialization
     private void Awake()
     {
+        //m_Joint = GetComponent<FixedJoint>();
         snapPoint = GetComponentInChildren<SnapPoint>();
     }
 
