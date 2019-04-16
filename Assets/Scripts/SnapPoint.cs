@@ -1,0 +1,47 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(BoxCollider))]
+public class SnapPoint : MonoBehaviour
+{
+    public List<Snapping> CurrentSnappings = new List<Snapping>();
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Snapping otherSnapping = other.gameObject.GetComponent<Snapping>();
+        if (!otherSnapping)
+        {
+            return;
+        }
+        CurrentSnappings.Add(otherSnapping);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Snapping otherSnapping = other.gameObject.GetComponent<Snapping>();
+        if (!otherSnapping)
+        {
+            return;
+        }
+        CurrentSnappings.Remove(otherSnapping);
+    }
+
+    public Snapping GetNearestSnapping()
+    {
+        Snapping nearest = null;
+        float minDistance = float.MaxValue;
+        float distance = 0.0f;
+        foreach (Snapping snapping in CurrentSnappings)
+        {
+            distance = (snapping.transform.position - transform.position).sqrMagnitude;
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearest = snapping;
+            }
+        }
+
+        return nearest;
+    }
+}
