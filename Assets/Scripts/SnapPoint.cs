@@ -18,6 +18,7 @@ public class SnapPoint : MonoBehaviour
     public void Attach(Snapping snapping)
     {
         // Attach
+        print(snapping);
         Rigidbody targetBody = snapping.GetComponent<Rigidbody>();
         m_Joint.connectedBody = targetBody;
     }
@@ -54,11 +55,14 @@ public class SnapPoint : MonoBehaviour
         float distance = 0.0f;
         foreach (Snapping snapping in CurrentSnappings)
         {
-            distance = (snapping.transform.position - transform.position).sqrMagnitude;
-            if (distance < minDistance)
+            if (snapping != GetComponentInParent<Snapping>())
             {
-                minDistance = distance;
-                nearest = snapping;
+                distance = (snapping.transform.position - transform.position).sqrMagnitude;
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearest = snapping;
+                }
             }
         }
 

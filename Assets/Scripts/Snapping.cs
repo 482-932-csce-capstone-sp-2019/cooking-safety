@@ -11,14 +11,14 @@ public class Snapping : Interactable {
 
     public override void Touched(Hand hand)
     {
-        //Unsnap();
+        Unsnap();
         base.Touched(hand);
     }
 
     public override void Untouched(Hand hand)
     {
         base.Untouched(hand);
-       // Snap();
+        Snap();
     }
 
     public override void Poked(Hand hand)
@@ -38,6 +38,7 @@ public class Snapping : Interactable {
 
         //position
         transform.position = CurrentSnapping.GetSnapPoint().transform.position;
+        GetComponent<Rigidbody>().isKinematic = true;
 
         CurrentSnapping.GetSnapPoint().Attach(this);
     }
@@ -45,14 +46,14 @@ public class Snapping : Interactable {
     void Unsnap()
     {
         if(CurrentSnapping){
-            CurrentSnapping.Detach();
+            CurrentSnapping.GetSnapPoint().Detach();
+            GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
     // Use this for initialization
     private void Awake()
     {
-        //m_Joint = GetComponent<FixedJoint>();
         snapPoint = GetComponentInChildren<SnapPoint>();
     }
 
