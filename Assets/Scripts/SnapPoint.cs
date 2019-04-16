@@ -2,10 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(FixedJoint))]
 [RequireComponent(typeof(BoxCollider))]
 public class SnapPoint : MonoBehaviour
 {
+    private FixedJoint m_Joint = null;
     public List<Snapping> CurrentSnappings = new List<Snapping>();
+
+    public void Awake()
+    {
+        m_Joint = GetComponent<FixedJoint>();
+    }
+
+    public void Attach(Snapping snapping)
+    {
+        // Attach
+        Rigidbody targetBody = snapping.GetComponent<Rigidbody>();
+        m_Joint.connectedBody = targetBody;
+    }
+
+    public void Detach()
+    {
+        m_Joint.connectedBody = null;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
