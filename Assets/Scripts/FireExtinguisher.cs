@@ -11,20 +11,24 @@ public class FireExtinguisher : MonoBehaviour {
     // Use this for initialization
     void Awake ()
     {
-        part = GetComponent<ParticleSystem>();
+        part = GetComponentInChildren<ParticleSystem>();
         collisionEvents = new List<ParticleCollisionEvent>();
+        ParticleSystem m_ParticleSystem = GetComponentInChildren<ParticleSystem>() as ParticleSystem;
+        m_ParticleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 
     void OnParticleCollision(GameObject other) {
-        int numCollisionEvents = part.GetCollisionEvents(other, collisionEvents);
-        int i = 0;
-        while (i < numCollisionEvents)
+        int numCollisionEvents = part.GetSafeCollisionEventSize();
+        print(other.name);
+        print("Number of Collisions: " + numCollisionEvents);
+        int eventCount = part.GetCollisionEvents(other, collisionEvents);
+        for (int i = 0; i < eventCount; i++)
         {
+            print(other.tag);
             if (other.tag == "Fire")
             {
                 other.SetActive(false);
             }
-            i++;
         }
     }
 

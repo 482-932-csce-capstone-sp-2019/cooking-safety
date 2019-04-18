@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Griddle : MonoBehaviour {
 
-    public bool griddle_on = false;
+    
 	bool m_play = false;
 	bool toggleChange;
 	AudioSource aud;
-	// Use this for initialization
-	void Start () {
+
+    private bool griddle_on = false;
+    public List<Cookable> Cookables = new List<Cookable>();
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -18,10 +22,34 @@ public class Griddle : MonoBehaviour {
 		
 	}
 
+    public void TurnOn()
+    {
+        griddle_on = true;
+        foreach (Cookable cook in Cookables)
+        {
+            cook.on_griddle = true;
+        }
+    }
+
+    public void TurnOff()
+    {
+        griddle_on = false;
+        foreach (Cookable cook in Cookables)
+        {
+            cook.on_griddle = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Cookable obj = other.gameObject.GetComponent<Cookable>();
-        if(obj != null && griddle_on)
+        if (!obj)
+        {
+            return;
+        }
+        Cookables.Add(obj);
+
+        if(griddle_on)
         {
             obj.on_griddle = true;
 			aud = GetComponentInChildren<AudioSource>(); 
@@ -47,9 +75,11 @@ public class Griddle : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         Cookable obj = other.gameObject.GetComponent<Cookable>();
-        if (obj != null && griddle_on)
+        if (!obj)
         {
-            obj.on_griddle = false;
+            return;
         }
+        Cookables.Remove(obj);
+        obj.on_griddle = false;
     }
 }
