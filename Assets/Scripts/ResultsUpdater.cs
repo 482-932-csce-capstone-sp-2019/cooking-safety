@@ -17,7 +17,7 @@ public class ResultsUpdater : MonoBehaviour {
             }
             string name = "Results" + i.ToString();
             TextMeshPro display = GameObject.Find(name).GetComponent<TextMeshPro>();
-            display.text = reasons[i];
+            display.text = reasons[i-1];
         }
 	}
 	
