@@ -42,6 +42,13 @@ public class GriddleControls : Interactable {
         transform.localRotation = Quaternion.Euler(tilt_x, tilt_y, 0);
 
         // Tell Griddle.cs to reflect the changes
-        GameObject.Find("GriddleLogic").GetComponent<Griddle>().griddle_on = griddle_on;
+        if(griddle_on)
+        {
+            GameObject.Find("GriddleLogic").GetComponent<Griddle>().TurnOn();
+        }
+        else
+        {
+            GameObject.Find("GriddleLogic").GetComponent<Griddle>().TurnOff();
+        }
     }
 }
