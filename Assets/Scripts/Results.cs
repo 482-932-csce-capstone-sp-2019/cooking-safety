@@ -4,11 +4,17 @@ using UnityEngine;
 
 public static class Results{
 
-    public static List<string> reasons = new List<string>();
+    public static List<KeyValuePair<string, bool>> reasons = new List<KeyValuePair<string, bool>();
+
+    public static void add(string s, bool b)
+    {
+        // bool b is false for a bad result/failure
+        reasons.Add(new KeyValuePair<string, bool>(s, b));
+    }
     
 	public static void Fail(string reason)
 	{
-		Results.reasons.Add(reason);
+		Results.reasons.Add(new KeyValuePair<string, bool>(reason, false));
 		GameObject.Find("SendToResults").GetComponent<LoadScene>().Load();
 	}
 		
