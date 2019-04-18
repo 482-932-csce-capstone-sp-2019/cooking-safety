@@ -59,34 +59,41 @@ public class HandState {
 	
 	public void touch_chicken()
 	{    
-		if (_state == State.dirty)
-		{
-			Results.Fail("Touched meats without washing hands first. FAIL");
-			return;
-		}
 		if (_state == State.beef)
 		{
 			Results.Fail("Cross contamination: failed to wash hands between touching meats. FAIL");
 			return;
 		}
-		_state = State.chicken;
+        if (_state == State.gloved)
+        {
+            Results.Fail("Touched meat with bare hands. FAIL");
+            return;
+        }
+        _state = State.chicken;
 	}
 	
 	public void touch_beef()
 	{
-		if (_state == State.dirty)
-		{
-			Results.Fail("Touched meats without washing hands first. FAIL");
-			return;
-		}
 		if (_state == State.chicken)
 		{
 			Results.Fail("Cross contamination: failed to wash hands between touching meats. FAIL");
 			return;
 		}
-		_state = State.beef;
+        if (_state != State.gloved)
+        {
+            Results.Fail("Touched meat with bare hands. FAIL");
+            return;
+        }
+        _state = State.beef;
 	}
-	
+	public void touch_bread()
+    {
+        if (_state != State.gloved)
+        {
+            Results.Fail("Cross contamination: touched bread with bare hands. FAIL");
+            return;
+        }
+    }
 	public string to_s(){
 			return "" + _state;
 	}
