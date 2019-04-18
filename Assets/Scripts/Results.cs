@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Results{
 
-    public static List<KeyValuePair<string, bool>> reasons = new List<KeyValuePair<string, bool>();
+    public static List<KeyValuePair<string, bool>> reasons = new List<KeyValuePair<string, bool>>();
 
     public static void add(string s, bool b)
     {

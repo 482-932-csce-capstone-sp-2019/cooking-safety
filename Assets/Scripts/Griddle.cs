@@ -52,23 +52,9 @@ public class Griddle : MonoBehaviour {
         if(griddle_on)
         {
             obj.on_griddle = true;
-			aud = GetComponentInChildren<AudioSource>(); 
+			aud = gameObject.transform.parent.GetComponentInChildren<AudioSource>(); 
 			
-			if (m_play == true && toggleChange == true)
-			{
-				//Play the audio you attach to the AudioSource component
-				aud.Play();
-				//Ensure audio doesn’t play more than once
-				toggleChange = false;
-			}
-			//Check if you just set the toggle to false
-			if (m_play == false && toggleChange == true)
-			{
-				//Stop the audio
-				aud.Stop();
-				//Ensure audio doesn’t play more than once
-				toggleChange = false;
-			}
+			aud.Play();
         }
     }
 
