@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-//[RequireComponent(typeof(FixedJoint))]
 public class Snapping : Interactable {
 
     private SnapPoint snapPoint = null; 
-    private Snapping CurrentSnapping = null;
+	private FixedJoint m_joint;
+    public Snapping CurrentSnapping = null;
 
     public override void Touched(Hand hand)
     {
@@ -30,25 +30,23 @@ public class Snapping : Interactable {
     {
         CurrentSnapping = snapPoint.GetNearestSnapping();
 
-        // Check if null
-        if (!CurrentSnapping)
-        {
-            return;
-        }
-
-        //position
-        transform.position = CurrentSnapping.GetSnapPoint().transform.position;
-        GetComponent<Rigidbody>().isKinematic = true;
-
-        CurrentSnapping.GetSnapPoint().Attach(this);
+        if (!CurrentSnapping){ return; }
+		CurrentSnapping.GetSnapPoint().DisableHighlighting();
+		MoveToSnapPoint();
+		m_joint = gameObject.AddComponent<FixedJoint>();
+		m_joint.connectedBody = CurrentSnapping.gameObject.GetComponent<Rigidbody>();
     }
 
     void Unsnap()
     {
-        if(CurrentSnapping){
-            CurrentSnapping.GetSnapPoint().Detach();
-            GetComponent<Rigidbody>().isKinematic = false;
-        }
+        if(!CurrentSnapping){ return; }
+		
+		m_joint.connectedBody = null;
+		Destroy(m_joint);
+		
+		CurrentSnapping.GetSnapPoint().EnableHighlighting();
+		
+        CurrentSnapping = null;
     }
 
     // Use this for initialization
@@ -56,8 +54,15 @@ public class Snapping : Interactable {
     {
         snapPoint = GetComponentInChildren<SnapPoint>();
     }
+	
 
     public SnapPoint GetSnapPoint(){
         return snapPoint;
     }
+	
+	private void MoveToSnapPoint()
+	{
+		transform.position = CurrentSnapping.GetSnapPoint().gameObject.transform.position;
+		transform.rotation = CurrentSnapping.GetSnapPoint().gameObject.transform.rotation;
+	}
 }

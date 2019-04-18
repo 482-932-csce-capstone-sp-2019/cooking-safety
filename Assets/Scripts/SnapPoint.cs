@@ -3,39 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(FixedJoint))]
 [RequireComponent(typeof(BoxCollider))]
 public class SnapPoint : MonoBehaviour
 {
-    private FixedJoint m_Joint = null;
+	private Snapping parentSnapping;
+	private bool highlightingEnabled = true;
     public List<Snapping> CurrentSnappings = new List<Snapping>();
+	private List<Snapping> InTrigger = new List<Snapping>();
 
-    public void Awake()
-    {
-        m_Joint = GetComponent<FixedJoint>();
-    }
-
-    public void Attach(Snapping snapping)
-    {
-        // Attach
-        print(snapping);
-        Rigidbody targetBody = snapping.GetComponent<Rigidbody>();
-        m_Joint.connectedBody = targetBody;
-    }
-
-    public void Detach()
-    {
-        m_Joint.connectedBody = null;
-    }
-
+	private void Awake()
+	{
+		parentSnapping = GetComponentInParent<Snapping>();
+	}
+	
     private void OnTriggerEnter(Collider other)
     {
         Snapping otherSnapping = other.gameObject.GetComponent<Snapping>();
-        if (!otherSnapping)
+        if (!otherSnapping || otherSnapping == parentSnapping || otherSnapping == parentSnapping.CurrentSnapping)
         {
             return;
         }
-        CurrentSnappings.Add(otherSnapping);
+        otherSnapping.GetSnapPoint().CurrentSnappings.Add(this.parentSnapping);
+		InTrigger.Add(otherSnapping);
+		ShowSnapHighlight();
     }
 
     private void OnTriggerExit(Collider other)
@@ -45,7 +35,9 @@ public class SnapPoint : MonoBehaviour
         {
             return;
         }
-        CurrentSnappings.Remove(otherSnapping);
+        otherSnapping.GetSnapPoint().CurrentSnappings.Remove(this.parentSnapping);
+		InTrigger.Remove(otherSnapping);
+		HideSnapHighlight();
     }
 
     public Snapping GetNearestSnapping()
@@ -68,4 +60,31 @@ public class SnapPoint : MonoBehaviour
 
         return nearest;
     }
+	
+	public void DisableHighlighting()
+	{
+		HideSnapHighlight();
+		highlightingEnabled = false;
+	}
+	
+	public void EnableHighlighting()
+	{
+		highlightingEnabled = true;
+		if(InTrigger.Count > 0){
+			ShowSnapHighlight();
+		}
+	}
+	
+	private void HideSnapHighlight()
+	{
+		if(!highlightingEnabled) return;
+		transform.GetChild(0).gameObject.SetActive(false);
+	}
+	
+	private void ShowSnapHighlight()
+	{		
+		if(!highlightingEnabled) return;
+		transform.GetChild(0).gameObject.SetActive(true);
+	}
+		
 }

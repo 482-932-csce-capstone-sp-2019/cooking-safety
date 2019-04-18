@@ -41,6 +41,8 @@ public class HandState {
     public void glove()
     {
         if (_state == State.gloved) return;
+        if (_state != State.clean)
+            Results.reasons.Add("Put on gloves without washing hands first. FAIL");
         _state = State.gloved;
         Hands.color = glove_color;
     }
