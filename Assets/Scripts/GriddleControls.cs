@@ -7,7 +7,8 @@ public class GriddleControls : Interactable {
     private bool griddle_on;
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
+        base.Start();
         griddle_on = false;
 	}
 
