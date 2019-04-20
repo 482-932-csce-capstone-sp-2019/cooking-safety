@@ -9,7 +9,7 @@ public class ResultsUpdater : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         List<KeyValuePair<string,bool>> reasons = Results.reasons;
-        for(int i = 0; i <= reasons.Count; i++)
+        for(int i = 0; i < reasons.Count; i++)
         {
             if(i >= 6)
             {

@@ -24,4 +24,18 @@ public class Meat : Snapping {
 			hand.handState.touch_chicken();
 		}
 	}
+
+    void OnCollisionEnter(Collision col)
+    {
+        Meat other = col.gameObject.GetComponent<Meat>();
+        if (other)
+        {
+            // Check if ours is chicken so failure is only called once instead of twice
+            if (my_meat == Meats.Chicken && my_meat != other.my_meat)
+            {
+                // Fail for cross contamination of meats
+                Results.Fail("Cross contamination between Chicken and Beef. FAIL");
+            }
+        }
+    }
 }
