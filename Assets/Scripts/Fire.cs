@@ -9,6 +9,8 @@ public class Fire : MonoBehaviour {
 	private float extinguished = 1.0f;
 	public  float extinguishing = 0.01f;
 	private bool extinguish_change = false;
+	private float fail_time = float.MaxValue;
+	public bool failed = false;
 	
     public void Extinguish()
     {
@@ -19,11 +21,22 @@ public class Fire : MonoBehaviour {
 		}
     }
 	
+	public void OnEnable(){
+		fail_time = Time.timeSinceLevelLoad + 12.0f;
+		print("OnEnabled called");
+	}
+	
+	
 	// Update is called once per frame
 	void Update () {
 		if(extinguished == 0.0f){
 			m_System.Stop();
 			gameObject.SetActive(false);
+		}
+		else if(failed == false && Time.timeSinceLevelLoad > fail_time){
+			Results.Fail("You didn't put out the fire in time. FAIL");
+			// Set flag to prevent multiple calls from being made
+			failed = true;
 		}
 	}
 	
