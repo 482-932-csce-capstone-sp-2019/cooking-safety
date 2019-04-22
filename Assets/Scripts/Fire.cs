@@ -23,7 +23,6 @@ public class Fire : MonoBehaviour {
 	
 	public void OnEnable(){
 		fail_time = Time.timeSinceLevelLoad + 12.0f;
-		print("OnEnabled called");
 	}
 	
 	
