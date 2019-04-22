@@ -5,7 +5,7 @@ using TMPro;
 
 public class Thermometer : MonoBehaviour {
 
-	public float temperature = 0;
+	public int temperature = 0;
     Cookable cook;
 	Renderer rend;
     TextMeshPro display;
@@ -36,7 +36,7 @@ public class Thermometer : MonoBehaviour {
 			}
             */
             //StartCoroutine("Heat");
-            temperature = cook.core_temp;
+            temperature = (int)cook.core_temp;
         }
 	}
 	void OnTriggerExit(Collider col)
@@ -56,7 +56,7 @@ public class Thermometer : MonoBehaviour {
             //temperature += 1;
 
             float otherTemp = cook.core_temp;
-            temperature = otherTemp;
+            temperature = (int)otherTemp;
         }
 	}
 	IEnumerator Cool()
@@ -66,7 +66,7 @@ public class Thermometer : MonoBehaviour {
             //yield return new WaitForSeconds(5);
             //temperature -= 1;
             float otherTemp = cook.core_temp;
-            temperature = otherTemp;
+            temperature = (int)otherTemp;
         }
 	}
 }
