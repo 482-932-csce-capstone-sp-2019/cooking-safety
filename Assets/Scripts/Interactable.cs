@@ -8,6 +8,24 @@ public class Interactable : MonoBehaviour {
     [HideInInspector]
     public Hand m_ActiveHand = null;
 
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
+
+    public void Start()
+    {
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
+    }
+
+    public void Reset()
+    {
+        transform.position = originalPosition;
+        transform.rotation = originalRotation;
+        Rigidbody rigid = GetComponent<Rigidbody>();
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
+    }
+
     public virtual void Touched(Hand hand)  
     {
         Pickup(hand);

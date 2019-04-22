@@ -24,6 +24,14 @@ public class Sink : Interactable
         {
             hand.handState.clean();
         }
+		else
+		{
+			Thermometer thermometer = collider.GetComponent<Thermometer>();
+			if(thermometer && isRunning)
+			{
+				thermometer.last_touched = Thermometer.State.None;
+			}
+		}
     }
 
     public override void Touched(Hand hand)

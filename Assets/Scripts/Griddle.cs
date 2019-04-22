@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Griddle : MonoBehaviour {
 
+    
+	bool toggleChange;
+	AudioSource aud;
+
     private bool griddle_on = false;
     public List<Cookable> Cookables = new List<Cookable>();
 
@@ -47,6 +51,9 @@ public class Griddle : MonoBehaviour {
         if(griddle_on)
         {
             obj.on_griddle = true;
+			aud = gameObject.transform.parent.GetComponentInChildren<AudioSource>(); 
+			
+			aud.Play();
         }
     }
 

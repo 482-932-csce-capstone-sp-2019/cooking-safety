@@ -5,10 +5,12 @@ using TMPro;
 
 public class Thermometer : MonoBehaviour {
 
-	public float temperature = 0;
+	public int temperature = 0;
+	public enum State {None, Beef, Chicken};
     Cookable cook;
 	Renderer rend;
     TextMeshPro display;
+	public State last_touched;
 	
     void Start()
     {
@@ -19,6 +21,17 @@ public class Thermometer : MonoBehaviour {
     {
         display.text = System.Convert.ToString(temperature);
     }
+	
+	State ConvertToState(Meat.Meats m){
+		switch(m){
+			case Meat.Meats.Beef:
+				return State.Beef;
+			case Meat.Meats.Chicken:
+				return State.Chicken;
+			default:
+				return State.None;
+		}
+	}
 	
 	void OnTriggerEnter(Collider col)
 	{
@@ -36,7 +49,14 @@ public class Thermometer : MonoBehaviour {
 			}
             */
             //StartCoroutine("Heat");
-            temperature = cook.core_temp;
+			
+			// Cross contamination check
+			State s = ConvertToState(cook.gameObject.GetComponent<Meat>().my_meat);
+			if(last_touched != State.None && s != last_touched){
+				Results.Fail("Cross contamination from thermometer. Must wash between different meats. FAIL");
+			}
+			else
+				temperature = (int)cook.core_temp;
         }
 	}
 	void OnTriggerExit(Collider col)
@@ -44,6 +64,7 @@ public class Thermometer : MonoBehaviour {
         if (col.gameObject.GetComponent<Cookable>())
         {
             //StopCoroutine("Heat");
+			last_touched = ConvertToState(cook.gameObject.GetComponent<Meat>().my_meat);
             cook = null;
         }
 	}
@@ -56,7 +77,7 @@ public class Thermometer : MonoBehaviour {
             //temperature += 1;
 
             float otherTemp = cook.core_temp;
-            temperature = otherTemp;
+            temperature = (int)otherTemp;
         }
 	}
 	IEnumerator Cool()
@@ -66,7 +87,7 @@ public class Thermometer : MonoBehaviour {
             //yield return new WaitForSeconds(5);
             //temperature -= 1;
             float otherTemp = cook.core_temp;
-            temperature = otherTemp;
+            temperature = (int)otherTemp;
         }
 	}
 }
