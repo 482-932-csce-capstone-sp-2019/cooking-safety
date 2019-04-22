@@ -14,7 +14,6 @@ public class LoadScene : MonoBehaviour {
     // Returns false if already loading a scene, true if scene has been successfully loaded.
     public bool Load()
     {
-		print(Results.reasons[Results.reasons.Count - 1].Key);
         if (load_scene)
         {
             print("Scene " + scene + " already loading");
