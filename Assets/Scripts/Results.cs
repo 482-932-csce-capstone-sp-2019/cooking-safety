@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Results{
 
-    public static List<KeyValuePair<string, bool>> reasons = new List<KeyValuePair<string, bool>();
+    public static List<KeyValuePair<string, bool>> reasons = new List<KeyValuePair<string, bool>>();
 
     public static void add(string s, bool b)
     {
@@ -17,5 +17,20 @@ public static class Results{
 		Results.reasons.Add(new KeyValuePair<string, bool>(reason, false));
 		GameObject.Find("SendToResults").GetComponent<LoadScene>().Load();
 	}
-		
+
+    public static void Fail(string reason, int n)
+    {
+        Results.reasons.Add(new KeyValuePair<string, bool>(reason, false));
+    }
+
+    public static void Pass(string reason)
+    {
+        Results.reasons.Add(new KeyValuePair<string, bool>(reason, true));
+        GameObject.Find("SendToResults").GetComponent<LoadScene>().Load();
+    }
+
+    public static void Pass(string reason, int n)
+    {
+        Results.reasons.Add(new KeyValuePair<string, bool>(reason, true));
+    }
 }
