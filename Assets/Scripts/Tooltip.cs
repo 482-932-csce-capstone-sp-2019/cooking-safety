@@ -19,6 +19,7 @@ public class Tooltip : MonoBehaviour {
   private Vector3 original_scale;
   private GameObject Tool;
   private GameObject Text;
+  private bool shown = false;
 
 	void Awake () {
         Tool = transform.Find("Cube").gameObject;
@@ -30,13 +31,14 @@ public class Tooltip : MonoBehaviour {
 	}
 	
 	public void Show(){
+		if(shown) return;
     wait = true;
     show = true;
   }
 
   public void Hide(){
-        Tool.SetActive(false);
-        HideText();
+        //Tool.SetActive(false);
+        //HideText();
   }
 
   void Update() {
@@ -81,6 +83,7 @@ public class Tooltip : MonoBehaviour {
       //finish
       ShowText();
       animate_up = false;
+	  shown = true;
     }
   }
 

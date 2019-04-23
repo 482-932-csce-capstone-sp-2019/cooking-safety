@@ -43,10 +43,11 @@ public class Interactable : MonoBehaviour {
 
     public void Pickup(Hand hand)
     {
+		hand.m_CurrentInteractable = this;
         // If already held
         if (m_ActiveHand)
         {
-            Drop(hand);
+            Drop(m_ActiveHand);
         }
 
         // Position

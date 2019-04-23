@@ -5,9 +5,9 @@ using UnityEngine;
 public class FireExtinguisherTool : Tool {
 
 	private bool pin_pulled = false;
-	private Interactable pin;
+	private Pin pin;
 	public void Awake(){
-		pin = transform.Find("Pin").GetComponent<Interactable>();
+		pin = GetComponentInChildren<Pin>();
 	}
 	
 	public override void Touched(Hand hand)

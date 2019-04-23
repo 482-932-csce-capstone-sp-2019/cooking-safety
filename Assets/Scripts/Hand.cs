@@ -13,7 +13,7 @@ public class Hand : MonoBehaviour
     private SteamVR_Behaviour_Pose m_Pose = null;
     private FixedJoint m_Joint = null;
 
-    private Interactable m_CurrentInteractable = null;
+    public Interactable m_CurrentInteractable = null;
     public List<Interactable> m_ContactInteractables = new List<Interactable>();
 
 	// Use this for initialization

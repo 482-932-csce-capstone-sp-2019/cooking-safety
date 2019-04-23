@@ -22,7 +22,7 @@ public class FireExtinguisher : MonoBehaviour {
     {
         // Is the fire extinguisher being held?
         if (!m_Interactable.m_ActiveHand) return;
-
+		
 		// Object is being held, we can now determine if we should be
         // activating the fire extinguisher.
         SteamVR_Behaviour_Pose m_Pose = m_Interactable.m_ActiveHand.GetComponent<SteamVR_Behaviour_Pose>();

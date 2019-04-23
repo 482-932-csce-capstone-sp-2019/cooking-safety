@@ -24,10 +24,10 @@ public class Sink : Interactable
       if (isRunning)
       {
         foreach(Thermometer t in Thermometers){
-				  thermometer.last_touched = Thermometer.State.None;
+				  t.last_touched = Thermometer.State.None;
         }
         foreach(Hand h in Hands){
-          hand.handState.clean();
+          h.handState.clean();
         }
       }
     }
@@ -42,6 +42,20 @@ public class Sink : Interactable
         var thermometer = collider.GetComponent<Thermometer>();
         if(thermometer){
           Thermometers.Add(thermometer);
+          return;
+        }
+    }
+	
+	public void OnTriggerExit(Collider collider)
+    {
+        var hand = collider.gameObject.GetComponent<Hand>();
+        if(hand){
+          Hands.Remove(hand);
+          return;
+        }
+        var thermometer = collider.GetComponent<Thermometer>();
+        if(thermometer){
+          Thermometers.Remove(thermometer);
           return;
         }
     }

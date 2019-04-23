@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tool : Interactable {
-
-
-
+	
     public override void Touched(Hand hand)
     {
         // If already held
         if (m_ActiveHand)
         {
-            Drop(hand);
+            Drop(m_ActiveHand);
         }
 
         // Position

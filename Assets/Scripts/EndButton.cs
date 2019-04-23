@@ -8,7 +8,7 @@ public class EndButton : Button
     protected override void Activate()
     {
 		print(Time.timeSinceLevelLoad);
-		
+		checkCookedTemp();
         // Load new scene asynchronously
         LoadScene scene_loader = GetComponent<LoadScene>();
         scene_loader.Load();
