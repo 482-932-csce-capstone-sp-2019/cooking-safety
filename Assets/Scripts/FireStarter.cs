@@ -13,7 +13,7 @@ public class FireStarter : MonoBehaviour {
 		fire.gameObject.SetActive(false);
         // Create random time for fire to start
         System.Random rand = new System.Random();
-        start_time = (float) (rand.NextDouble() * 10) + 5f;
+        start_time = (float) (rand.NextDouble() * 20) + 60f;
         print("Fire start time will be in " + start_time.ToString() + " seconds");
 	}
 	
