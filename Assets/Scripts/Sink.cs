@@ -10,6 +10,8 @@ public class Sink : Interactable
 {
     ParticleSystem water;
     private bool isRunning = false;
+    public List<Thermometer> Thermometers = new List<Thermometer>();
+    public List<Hand> Hands = new List<Hand>();
 
     public void Awake()
     {
@@ -17,21 +19,31 @@ public class Sink : Interactable
         water.Stop();
     }
 
+    public void Update()
+    {
+      if (isRunning)
+      {
+        foreach(Thermometer t in Thermometers){
+				  thermometer.last_touched = Thermometer.State.None;
+        }
+        foreach(Hand h in Hands){
+          hand.handState.clean();
+        }
+      }
+    }
+
     public void OnTriggerEnter(Collider collider)
     {
         var hand = collider.gameObject.GetComponent<Hand>();
-        if (hand && isRunning)
-        {
-            hand.handState.clean();
+        if(hand){
+          Hands.Add(hand);
+          return;
         }
-		else
-		{
-			Thermometer thermometer = collider.GetComponent<Thermometer>();
-			if(thermometer && isRunning)
-			{
-				thermometer.last_touched = Thermometer.State.None;
-			}
-		}
+        var thermometer = collider.GetComponent<Thermometer>();
+        if(thermometer){
+          Thermometers.Add(thermometer);
+          return;
+        }
     }
 
     public override void Touched(Hand hand)
