@@ -17,6 +17,7 @@ public class GloveBox : Interactable {
 
     public override void Poked(Hand hand)
     {
+		print(hand.handState.to_s());
         hand.handState.glove();
     }
 }
