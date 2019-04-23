@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class TooltipCollider : MonoBehaviour {
     public void OnTriggerEnter(Collider collider)
     {
       var tool = collider.gameObject.GetComponent<Tooltip>();
