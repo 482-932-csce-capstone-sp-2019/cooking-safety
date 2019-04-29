@@ -5,7 +5,7 @@ using UnityEngine;
 public class Griddle : MonoBehaviour {
 
     
-	bool toggleChange;
+	//bool toggleChange;
 	AudioSource aud;
 
     private bool griddle_on = false;
