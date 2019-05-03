@@ -2,7 +2,23 @@
 
 This document is intended to be used for people using the application. If you are looking for information on the development of this project, please check the [wiki](https://github.com/482-932-csce-capstone-sp-2019/cooking-safety/wiki) and the [source code](https://github.com/482-932-csce-capstone-sp-2019/cooking-safety).
 
+### Welcome!
 
+This application is designed to help people learn about proper food safety skills to practice in the kitchen. By using a virtual reality headset, we hope to make training costs cheaper and training more interactive for people who have to take food safety courses. While buying a virtual reality headset and the required components to run it seems more expensive, it is actually cheaper in the long run if many employees have to be trained for food safety since the cost of food, using a fully functional kitchen, and training labor costs can become costly. 
+
+In its current state, this training helps people practice the following 4 things:
+
+1. Preventing cross contamination of meats
+2. Keeping hands clean in the kitchen
+3. Putting out fires in a timely manner
+4. Cooking meats to the appropriate temperature
+
+In the future, this application could be expanded upon by implementing some of the following things:
+
+- Keeping meats refridgerated
+- Inspecting food for mold or disease
+- More accurate interactions
+- More recipes
 
 ### Requirements
 
