@@ -5,21 +5,11 @@ using UnityEngine;
 public class Griddle : MonoBehaviour {
 
     
-	bool toggleChange;
+	//bool toggleChange;
 	AudioSource aud;
 
     private bool griddle_on = false;
     public List<Cookable> Cookables = new List<Cookable>();
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void TurnOn()
     {
